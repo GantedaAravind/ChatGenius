@@ -24,7 +24,9 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //remove it in production
 app.use(morgan("dev"));
-
+app.get("/",(req,res)=>{
+  res.send("Welcome ChatGenius API 🤩");
+})
 app.use("/api/v1", appRouter);
 
 export default app;
