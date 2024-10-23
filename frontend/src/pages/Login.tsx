@@ -118,7 +118,7 @@ const Login = () => {
                 type={`${showPassword ? "text" : "password"}`}
                 id="password"
                 placeholder="Enter Your password"
-                className="outline-none rounded-md bg-[#05101c] my-2 p-2 w-full border-b-2  focus:bg-white focus:text-black py-2"
+                className="outline-none focus:rounded-md bg-[#05101c] my-2 p-2 w-full border-b-2  focus:bg-white focus:text-black py-2"
                 name="password"
                 onChange={handleInputChange}
               />
