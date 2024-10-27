@@ -117,7 +117,22 @@ const Chat = () => {
 
   return (
     <div className="flex justify-around md:m-10 md:gap-10 ">
-      <div className=" max-w-[25%] hidden md:block ">
+      <motion.div initial={{
+            opacity: 0,
+            x: -100,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+          }}
+          transition={{
+            duration: 1.5,
+          }}
+          viewport={{
+            once: false,
+            amount: 0.2,
+          }}
+           className=" max-w-[25%] hidden md:block ">
         <div className="border-slate-400 rounded-md mt-10 border-2 p-4">
           <p className=" text-xl lg:text-2xl px-3 py-1 mx-auto text-center rounded-full bg-green-600 w-fit">
             {user.name[0]}
@@ -143,9 +158,24 @@ const Chat = () => {
             )}
           </button>
         </div>
-      </div>
+      </motion.div>
 
-      <div
+      <motion.div
+      initial={{
+        opacity: 0,
+        x: 100,
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+      }}
+      transition={{
+        duration: 1.5,
+      }}
+      viewport={{
+        once: false,
+        amount: 0.2,
+      }}
         className="w-[95%]  max-h-[calc(100vh-25vh)] sm:max-h-[calc(100vh-140px)] md:max-h-[calc(100vh-250px)] lg:max-h-[calc(100vh-200px)] lg:max-w-[70] p-0 overflow-y-scroll"
         ref={chatContainerRef}
       >
@@ -198,9 +228,23 @@ const Chat = () => {
             </div>
           );
         })}
-      </div>
+      </motion.div>
 
-      <form className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12  w-[95%] sm:w-[80%]">
+      <motion.form initial={{
+            opacity: 0,
+            y: -100,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1.5,
+          }}
+          viewport={{
+            once: false,
+            amount: 0.2,
+          }} className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12  w-[95%] sm:w-[80%]">
         <div className="flex items-center text-base sm:text-md md:text-xl  bg-[#05101c]  border-2 border-slate-300 rounded-full">
           <input
             type="text"
@@ -224,7 +268,7 @@ const Chat = () => {
             )}
           </button>
         </div>
-      </form>
+      </motion.form>
     </div>
   );
 };

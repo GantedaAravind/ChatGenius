@@ -7,7 +7,11 @@ import axiosInstance from "../config/axiosConfig";
 import { RootState } from "../store";
 import playSound from "../utils/playSound";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa6";
-
+import { Tooltip } from "react-tooltip";
+import { motion } from "framer-motion";
+import "react-tooltip/dist/react-tooltip.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 const Signup = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -86,7 +90,20 @@ const Signup = () => {
 
   return (
     <div className="mx-auto  rounded-md flex  w-fit items-center mt-16 ">
-      <div className=" h-full my-auto border md:border-none shadowGreen p-4 rounded-md">
+      <motion.div
+        initial={{
+          opacity: 0,
+          x: -100,
+        }}
+        whileInView={{
+          opacity: 1,
+          x: 0,
+        }}
+        transition={{
+          duration: 1.5,
+        }}
+        className=" h-full my-auto border md:border-none shadowGreen p-4 rounded-md"
+      >
         <h2 className="text-md sm:text-lg  md:text-xl lg:text-2xl text-center font-medium ">
           SignUp
         </h2>
@@ -140,11 +157,16 @@ const Signup = () => {
                 name="password"
                 onChange={handleInputChange}
               />
-              <div className="p-1 rounded-full cursor-pointer absolute right-0 text-green-500">
+              <div
+                data-tooltip-id="eye"
+                data-tooltip-content="view"
+                className="p-1 rounded-full cursor-pointer absolute right-0 text-green-500"
+              >
                 {showPassword ? (
                   <FaRegEye
                     className="text-2xl "
                     onClick={() => {
+                      playSound();
                       setShowPassword(false);
                     }}
                   />
@@ -152,11 +174,17 @@ const Signup = () => {
                   <FaEyeSlash
                     className="text-2xl "
                     onClick={() => {
+                      playSound();
                       setShowPassword(true);
                     }}
                   />
                 )}
               </div>
+              <Tooltip
+                id="eye"
+                place="top"
+                style={{ fontFamily: "Consolas, monospace" }}
+              />
             </div>
           </div>
           <button
@@ -182,14 +210,28 @@ const Signup = () => {
             Log In
           </Link>
         </p>
-      </div>
-      <div className="w-96  hidden md:block ">
-        <img
+      </motion.div>
+      <motion.div
+        initial={{
+          opacity: 0,
+          x: 100,
+        }}
+        whileInView={{
+          opacity: 1,
+          x: 0,
+        }}
+        transition={{
+          duration: 1.5,
+        }}
+        className="w-96  hidden md:block "
+      >
+        <LazyLoadImage
+        effect="blur"
           src="/hirobott.png"
           alt="Login"
           className="transform scale-x-[-1]"
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
