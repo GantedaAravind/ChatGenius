@@ -234,17 +234,14 @@ const Chat = () => {
             opacity: 0,
             y: 100,
           }}
-          whileInView={{
+          animate={{
             opacity: 1,
             y: 0,
           }}
           transition={{
             duration: 1.5,
           }}
-          viewport={{
-            once: false,
-            amount: 0.2,
-          }} className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12  w-[95%] sm:w-[80%]">
+          className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12  w-[95%] sm:w-[80%]">
         <div className="flex items-center text-base sm:text-md md:text-xl  bg-[#05101c]  border-2 border-slate-300 rounded-full">
           <input
             type="text"
