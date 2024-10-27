@@ -232,7 +232,7 @@ const Chat = () => {
 
       <motion.form initial={{
             opacity: 0,
-            y: -100,
+            y: 100,
           }}
           whileInView={{
             opacity: 1,
