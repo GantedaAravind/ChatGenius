@@ -64,7 +64,6 @@ export const generateChatCompletion = async (req, res, next) => {
 export const getResponseGoogleBard = async (req, res, next) => {
     try {
         const { message } = req.body;
-        // Find the user by ID
         const user = await UserModel.findById(res.locals._id);
         if (!user) {
             return res.status(401).json({
@@ -73,23 +72,23 @@ export const getResponseGoogleBard = async (req, res, next) => {
                 error: true,
             });
         }
-        const chats = user.chats.map(({ role, content }) => ({
-            role: role,
-            content,
-        }));
-        // Add the new user message
-        chats.push({ content: message, role: "user" }); // Use 'content' instead of 'message'
+        const chatHistory = user.chats.map(({ role, content }) => {
+            return {
+                role: role === "assistant" ? "model" : role, // Assuming "assistant" should be treated as "model"
+                parts: [{ text: content }],
+            };
+        });
         user.chats.push({ content: message, role: "user" }); // Use 'content' instead of 'message'
-        // Validate the prompt
         if (!message) {
             throw new Error("Propmt is required...😶");
         }
         const genAI = new GoogleGenerativeAI(process.env.API_KEY); // Initialize Google Generative AI
         const model = await genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-        const result = await model.generateContent(message); // Generate content using the prompt
-        const response = await result.response;
-        const text = await response.text(); // Extract the text from the response
-        // Send the generated output back to the client
+        const chat = model.startChat({
+            history: chatHistory,
+        });
+        const result = await chat.sendMessage(message);
+        const text = result.response.text();
         user.chats.push({ role: "assistant", content: text });
         await user.save();
         return res.status(200).json({
@@ -108,7 +107,8 @@ export const getResponseGoogleBard = async (req, res, next) => {
     }
 };
 export const clearChat = async (req, res, next) => {
-    try { // Find the user by ID
+    try {
+        // Find the user by ID
         const user = await UserModel.findById(res.locals._id);
         if (!user) {
             return res.status(401).json({
