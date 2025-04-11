@@ -4,6 +4,6 @@ import { clearChat, generateChatCompletion, getResponseGoogleBard, } from "../co
 const chatRouter = Router();
 chatRouter.post("/bard", verifyTheToken, getResponseGoogleBard);
 chatRouter.post("/openai", verifyTheToken, generateChatCompletion);
-chatRouter.get("/clear", verifyTheToken, clearChat);
+chatRouter.delete("/clear", verifyTheToken, clearChat);
 export default chatRouter;
 //# sourceMappingURL=chat-routes.js.map

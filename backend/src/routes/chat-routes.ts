@@ -10,6 +10,6 @@ const chatRouter = Router();
 
 chatRouter.post("/bard", verifyTheToken, getResponseGoogleBard);
 chatRouter.post("/openai", verifyTheToken, generateChatCompletion);
-chatRouter.get("/clear", verifyTheToken, clearChat);
+chatRouter.delete("/clear", verifyTheToken, clearChat);
 
 export default chatRouter;
